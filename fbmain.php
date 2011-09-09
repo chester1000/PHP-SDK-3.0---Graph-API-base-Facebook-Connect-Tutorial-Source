@@ -1,8 +1,14 @@
 <?php
 /*
  * @author: Mahmud Ahsan (http://thinkdiff.net)
+ * @editor: Maurycy Damian Wasilewski
  */
     //facebook application's data
+    $fbconfig['appid' ]  = $app_id     = "";
+    $fbconfig['secret']  = $app_secret = "";
+    $fbconfig['baseurl'] = $burl       = "";
+
+    // contains only values overriding fb settings
     include_once "fb_vars.inc";
 
     // tracking users entering from invitations
@@ -12,16 +18,16 @@
     }
 
     $user            =   null; //facebook user uid
-    try{
+    try {
         include_once "facebook.php";
     }
-    catch(Exception $o){
+    catch(Exception $o) {
         error_log($o);
     }
     // Create our Application instance.
     $facebook = new Facebook(array(
-      'appId'  => $fbconfig['appid'],
-      'secret' => $fbconfig['secret'],
+      'appId'  => $app_id,
+      'secret' => $app_secret,
       'cookie' => true,
     ));
 
@@ -36,24 +42,24 @@
 
 
     $loginUrl   = $facebook->getLoginUrl(
-            array(
-                'scope'         => 'email,offline_access,publish_stream,user_birthday,user_location,user_work_history,user_about_me,user_hometown',
-                'redirect_uri'  => $fbconfig['baseurl']
-            )
+        array(
+            'scope'        => 'email,offline_access,manage_pages,publish_stream',
+            'redirect_uri' => $burl
+        )
     );
 
     $logoutUrl  = $facebook->getLogoutUrl();
 
 
     if ($user) {
-      try {
-        // Proceed knowing you have a logged in user who's authenticated.
-        $user_profile = $facebook->api('/me');
-      } catch (FacebookApiException $e) {
-        //you should use error_log($e); instead of printing the info on browser
-        d($e);  // d is a debug function defined at the end of this file
-        $user = null;
-      }
+        try {
+            // Proceed knowing you have a logged in user who's authenticated.
+            $user_profile = $facebook->api('/me');
+        } catch (FacebookApiException $e) {
+            //you should use error_log($e); instead of printing the info on browser
+            d($e);  // d is a debug function defined at the end of this file
+            $user = null;
+        }
     }
 
 

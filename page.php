@@ -30,15 +30,15 @@
         //publish in fanpage
         if (isset($_REQUEST['publish'])){
             try {
-                  $wallpostpage = $facebook->api('/thinkdiff.net/feed', 'post',
-                                  array(
-                                      'message' => 'I love Thinkdiff.net for facebook and web related tutorials and iThinkdiff.net for iPhone/iPad Dictionaries.',
-                                      'picture' => 'http://thinkdiff.net/ithinkdiff.png',
-                                      'link'    => 'http://ithinkdiff.net',
-                                      'name'    => 'iThinkdiff.net iOS App Site',
-                                      'cb'      => ''
-                                      )
-                                  );
+                $wallpostpage = $facebook->api('/thinkdiff.net/feed', 'post',
+                    array(
+                        'message' => 'I love Thinkdiff.net for facebook and web related tutorials and iThinkdiff.net for iPhone/iPad Dictionaries.',
+                        'picture' => 'http://thinkdiff.net/ithinkdiff.png',
+                        'link'    => 'http://ithinkdiff.net',
+                        'name'    => 'iThinkdiff.net iOS App Site',
+                        'cb'      => ''
+                    )
+                );
             } catch (FacebookApiException $e) {
                   d($e);
             }
@@ -49,14 +49,14 @@
             $albumID    =   isset($_REQUEST['albumid']) ? $_REQUEST['albumid'] : '';
 
             try {
-                  $uploadstatus = $facebook->api("/me/photos", 'post',
-                                  array(
-                                      'source'  =>  '@ithinkdiff.png',
-                                      'message' => 'I love Thinkdiff.net for facebook and web related tutorials and iThinkdiff.net for iPhone/iPad Dictionaries.'
-                                      )
-                                  );
+                $uploadstatus = $facebook->api("/me/photos", 'post',
+                    array(
+                        'source'  =>  '@ithinkdiff.png',
+                        'message' => 'I love Thinkdiff.net for facebook and web related tutorials and iThinkdiff.net for iPhone/iPad Dictionaries.'
+                    )
+                );
             } catch (FacebookApiException $e) {
-                  d($e);
+                d($e);
             }
         }
 
