@@ -5,10 +5,10 @@
     //facebook application's data
     include_once "fb_vars.inc";
 
-    //
+    // tracking users entering from invitations
     if (isset($_GET['request_ids'])){
-        //user comes from invitation
-        //track them if you need
+        // handle tracking/invitation action
+        // remove invitation
     }
 
     $user            =   null; //facebook user uid

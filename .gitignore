@@ -1,2 +1,4 @@
 fb_vars.inc
 *.kate-swp
+*~
+.gitignore
