@@ -2,17 +2,15 @@
 /*
  * @author: Mahmud Ahsan (http://thinkdiff.net)
  */
-    //facebook application
-    $fbconfig['appid' ]     = "";
-    $fbconfig['secret']     = "";
-    $fbconfig['baseurl']    = ""; //"http://thinkdiff.net/demo/newfbconnect1/php/sdk3/index.php";
+    //facebook application's data
+    include_once "fb_vars.inc";
 
     //
     if (isset($_GET['request_ids'])){
         //user comes from invitation
         //track them if you need
     }
-    
+
     $user            =   null; //facebook user uid
     try{
         include_once "facebook.php";
@@ -29,23 +27,23 @@
 
     //Facebook Authentication part
     $user       = $facebook->getUser();
-    // We may or may not have this data based 
+    // We may or may not have this data based
     // on whether the user is logged in.
-    // If we have a $user id here, it means we know 
+    // If we have a $user id here, it means we know
     // the user is logged into
     // Facebook, but we don’t know if the access token is valid. An access
     // token is invalid if the user logged out of Facebook.
-    
-    
+
+
     $loginUrl   = $facebook->getLoginUrl(
             array(
                 'scope'         => 'email,offline_access,publish_stream,user_birthday,user_location,user_work_history,user_about_me,user_hometown',
                 'redirect_uri'  => $fbconfig['baseurl']
             )
     );
-    
+
     $logoutUrl  = $facebook->getLogoutUrl();
-   
+
 
     if ($user) {
       try {
@@ -57,13 +55,13 @@
         $user = null;
       }
     }
-   
-    
+
+
     //if user is logged in and session is valid.
     if ($user){
         //get user basic description
         $userInfo           = $facebook->api("/$user");
-        
+
         //Retriving movies those are user like using graph api
         try{
             $movies = $facebook->api("/$user/movies");
@@ -71,20 +69,20 @@
         catch(Exception $o){
             d($o);
         }
-        
+
         //update user's status using graph api
         //http://developers.facebook.com/docs/reference/dialogs/feed/
         if (isset($_GET['publish'])){
             try {
                 $publishStream = $facebook->api("/$user/feed", 'post', array(
-                    'message' => "I love thinkdiff.net for facebook app development tutorials. :)", 
+                    'message' => "I love thinkdiff.net for facebook app development tutorials. :)",
                     'link'    => 'http://ithinkdiff.net',
                     'picture' => 'http://thinkdiff.net/ithinkdiff.png',
                     'name'    => 'iOS Apps & Games',
                     'description'=> 'Checkout iOS apps and games from iThinkdiff.net. I found some of them are just awesome!'
                     )
                 );
-                //as $_GET['publish'] is set so remove it by redirecting user to the base url 
+                //as $_GET['publish'] is set so remove it by redirecting user to the base url
             } catch (FacebookApiException $e) {
                 d($e);
             }
@@ -116,7 +114,7 @@
             d($o);
         }
     }
-    
+
     function d($d){
         echo '<pre>';
         print_r($d);

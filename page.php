@@ -1,7 +1,7 @@
 <?php
     include_once "fbmain.php";
     $config['baseurl']  =   "http://thinkdiff.net/demo/newfbconnect1/php/page.php";
-    
+
     //if user is logged in and session is valid.
     if ($fbme){
         $urllike    =   'http://thinkdiff.net';
@@ -47,7 +47,7 @@
         //upload photo in facebook album
         if (isset($_REQUEST['albumid'])){
             $albumID    =   isset($_REQUEST['albumid']) ? $_REQUEST['albumid'] : '';
-           
+
             try {
                   $uploadstatus = $facebook->api("/me/photos", 'post',
                                   array(
@@ -75,7 +75,7 @@
                   d($e);
             }
             */
-        
+
 
             //fql query example using legacy method call and passing parameter
         try{
@@ -175,7 +175,7 @@
             <b>1. Get total number of Like of an url</b>
             <form name="" action="page.php" method="POST">
                 Provide your url here: <br />
-        
+
                 <input type="text" name="urllike"  style="width: 300px;" value="<?=$urllike?>" />
                 <span class="fnt11">(possible value: url, post id, page id)</span>
                 <br />
