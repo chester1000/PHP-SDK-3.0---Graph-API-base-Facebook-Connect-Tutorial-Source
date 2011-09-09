@@ -9,25 +9,36 @@
             function streamPublish(name, description, hrefTitle, hrefLink, userPrompt){
                 FB.ui({ method : 'feed',
                         message: userPrompt,
-                        link   :  hrefLink,
-                        caption:  hrefTitle,
+                        link   : hrefLink,
+                        caption: hrefTitle,
                         picture: 'http://thinkdiff.net/ithinkdiff.png'
                });
-               //http://developers.facebook.com/docs/reference/dialogs/feed/
-
             }
             function publishStream(){
                 streamPublish("Stream Publish", 'Checkout iOS apps and games from iThinkdiff.net. I found some of them are just awesome!', 'Checkout iThinkdiff.net', 'http://ithinkdiff.net', "Demo Facebook Application Tutorial");
             }
 
-            function newInvite(){
+            function stream_publish(name, message, link, caption, description, pic_url) {
+                FB.ui({
+                    method      : 'feed',
+                    name        : name,
+                    message     : message,
+                    link        : link,
+                    caption     : caption,
+                    description : description,
+                    picture     : pic_url
+               });
+            }
+
+            function newInvite(message){
                 var receiverUserIds = FB.ui({
                     method : 'apprequests',
-                    message: 'Come on man checkout my applications. visit http://ithinkdiff.net',
+                    message: message,
                 },
-                function(receiverUserIds) {
+                function(receiverUserIds) { // callback
                     console.log("IDS : " + receiverUserIds.request_ids);
-                }); //http://developers.facebook.com/docs/reference/dialogs/requests/
+                    return true; // good practice
+                });
             }
         </script>
     </head>
@@ -45,7 +56,7 @@
 
     <div id="log-box">
         <? if (!$user):  ?>
-            Click below to login using your Facebook account
+            Click below to login using your Facebook account<br />
             <a href="<?= $loginUrl; ?>">Login with Facebook</a>
         <? else:  ?>
             <a href="<?= $logoutUrl; ?>">Logout now!</a>
@@ -54,6 +65,10 @@
 
     <!-- all time check if user session is valid or not -->
     <? if ($user): ?>
+
+    <?
+        // TODO: replace <table /> with retrieved data formatted in some way
+    ?>
         <table border="0" cellspacing="3" cellpadding="3">
             <tr>
                 <td>
